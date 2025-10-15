@@ -28,3 +28,12 @@ hl7-parseme/
 1. Mirth Connect listens for incoming HL7 messages
 2. Messages are routed based on their type (ADT or ORU)
 3. Python script converts sample messages to JSON for readability
+
+## HL7 -> JSON Watcher 
+The included Python watcher script (`hl7_watcher.py`) monitors the Mirth output folders for new HL7 files and automatically converts them to JSON.
+
+### Wacther Workflow
+1. Mirth receives HL7 ADT or ORU messages.
+2. The message is written to disk.
+3. The Python watcher detects the new file.
+4. It parses the HL7 and saves the JSON version to `/json_output`.
