@@ -9,9 +9,13 @@ This project demonstrates how HL7 messages can be parsed, transformed, and route
 
 ## Project Structure
 hl7-parseme/
+
 ├── mirth_channels/ # exported Mirth channels
+
 ├── python_parser/ # Python parser and sample messages
+
 ├── screenshots/ # Mirth screenshots
+
 └── README.md
 
 ## Message Types
