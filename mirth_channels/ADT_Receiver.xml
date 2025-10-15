@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channel version="3.12.0">
+  <id>adt-receiver-001</id>
+  <name>ADT_Receiver</name>
+  <enabled>true</enabled>
+  <description>Receives HL7 ADT messages and writes them to a file</description>
+  <sourceConnector>
+    <transportName>TCP Listener</transportName>
+    <properties class="com.mirth.connect.connectors.tcp.TcpReceiverProperties">
+      <listenerConnectorProperties class="com.mirth.connect.connectors.tcp.TcpListenerConnectorProperties">
+        <port>6661</port>
+        <bufferSize>65536</bufferSize>
+        <keepConnectionOpen>false</keepConnectionOpen>
+        <dataType>HL7V2</dataType>
+      </listenerConnectorProperties>
+    </properties>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>File Writer</name>
+      <transportName>File Writer</transportName>
+      <properties class="com.mirth.connect.connectors.file.FileDispatcherProperties">
+        <host>127.0.0.1</host>
+        <outputPattern>C:/mirth_output/adt/${message.messageId}.hl7</outputPattern>
+        <template>${message.encodedData}</template>
+        <fileType>ASCII</fileType>
+      </properties>
+    </connector>
+  </destinationConnectors>
+  <filter>
+    <rules>
+      <rule>
+        <name>Only ADT Messages</name>
+        <type>JavaScript</type>
+        <script>
+          <![CDATA[
+          // Only process ADT messages
+          var msgType = msg['MSH']['MSH.9']['MSH.9.1'].toString();
+          (msgType == 'ADT');
+          ]]>
+        </script>
+      </rule>
+    </rules>
+  </filter>
+</channel>
