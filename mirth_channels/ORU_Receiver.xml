@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channel version="3.12.0">
+  <id>oru-receiver-002</id>
+  <name>ORU_Receiver</name>
+  <enabled>true</enabled>
+  <description>Receives HL7 ORU messages and writes them to a file</description>
+  <sourceConnector>
+    <transportName>TCP Listener</transportName>
+    <properties class="com.mirth.connect.connectors.tcp.TcpReceiverProperties">
+      <listenerConnectorProperties class="com.mirth.connect.connectors.tcp.TcpListenerConnectorProperties">
+        <port>6662</port>
+        <bufferSize>65536</bufferSize>
+        <keepConnectionOpen>false</keepConnectionOpen>
+        <dataType>HL7V2</dataType>
+      </listenerConnectorProperties>
+    </properties>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>File Writer</name>
+      <transportName>File Writer</transportName>
+      <properties class="com.mirth.connect.connectors.file.FileDispatcherProperties">
+        <host>127.0.0.1</host>
+        <outputPattern>C:/mirth_output/oru/${message.messageId}.hl7</outputPattern>
+        <template>${message.encodedData}</template>
+        <fileType>ASCII</fileType>
+      </properties>
+    </connector>
+  </destinationConnectors>
+  <filter>
+    <rules>
+      <rule>
+        <name>Only ORU Messages</name>
+        <type>JavaScript</type>
+        <script>
+          <![CDATA[
+          // Only process ORU messages
+          var msgType = msg['MSH']['MSH.9']['MSH.9.1'].toString();
+          (msgType == 'ORU');
+          ]]>
+        </script>
+      </rule>
+    </rules>
+  </filter>
+</channel>
