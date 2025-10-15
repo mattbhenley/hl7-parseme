@@ -13,3 +13,14 @@ hl7-parseme/
 ├── python_parser/ # Python parser and sample messages
 ├── screenshots/ # Mirth screenshots
 └── README.md
+
+## Message Types
+| Type | Trigger | Description |
+|------|----------|-------------|
+| **ADT^A01** | Admit/Visit Notification | Used for patient admissions |
+| **ORU^R01** | Observation Result | Sends lab or clinical results |
+
+## How It Works
+1. Mirth Connect listens for incoming HL7 messages
+2. Messages are routed based on their type (ADT or ORU)
+3. Python script converts sample messages to JSON for readability
