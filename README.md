@@ -1,7 +1,5 @@
 # hl7-parseme
 
-This project demonstrates how HL7 messages can be parsed, transformed, and routed between systems — similar to what an Interface Analyst does in a healthcare environment.
-
 ## Tools Used
 - **Mirth Connect (NextGen Connect):** Integration engine for routing HL7 messages
 - **Python (hl7apy):** Script to parse HL7 and convert to JSON
