@@ -1,5 +1,4 @@
 # hl7-parseme
-
 ## Tools Used
 - **Mirth Connect (NextGen Connect):** Integration engine for routing HL7 messages
 - **Python (hl7apy):** Script to parse HL7 and convert to JSON
